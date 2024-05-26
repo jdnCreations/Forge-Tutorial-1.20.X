@@ -15,6 +15,11 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(TutorialMod.MOD_ID)
 public class TutorialMod
@@ -35,6 +40,7 @@ public class TutorialMod
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 
+
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
 
@@ -44,7 +50,15 @@ public class TutorialMod
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-
+        LOGGER.info("COMMON SETUP RUNNING");
+        Path path = Paths.get("playerdata");
+        if (!Files.exists(path)) {
+            try {
+                Files.createDirectories(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     // Add the example block item to the building blocks tab
