@@ -6,8 +6,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
-
 
 import java.io.*;
 import java.nio.file.Files;
@@ -61,6 +61,7 @@ public class PlayerEventHandler {
         Map<String, BlockPos> playerHomes = homes.get(playerUUID);
         if (playerHomes != null && !playerHomes.isEmpty()) {
             Yaml yaml = new Yaml();
+
             try (FileWriter writer = new FileWriter(String.valueOf(filePath))) {
                 yaml.dump(playerHomes, writer);
                 System.out.println("Data written to file.");
